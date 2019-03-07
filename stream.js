@@ -142,8 +142,10 @@ function WebSocketStream(target, protocols, options) {
 
   function onmessage(event) {
     var data = event.data
-    if (data instanceof ArrayBuffer) data = Buffer.from(data)
-    else data = Buffer.from(data, 'utf8')
+    if(options.binary) {
+       if (data instanceof ArrayBuffer) data = Buffer.from(data)
+       else data = Buffer.from(data, 'utf8')
+    }
     proxy.push(data)
   }
 
